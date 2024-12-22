@@ -1,0 +1,20 @@
+{
+  "name": "testing-medic-tec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:run": "cucumber-js",
+    "test:report": "node report.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.1.1",
+    "@ngneat/falso": "^7.2.0",
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2",
+    "dotenv": "^16.4.7"
+  }
+}
