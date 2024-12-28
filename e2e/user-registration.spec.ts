@@ -18,22 +18,26 @@ test("Happy Path - User Registration", async ({ page }) => {
   await page.getByTestId("users-registration").click();
 
   await page.getByTestId("firstName").click();
-  const FIRST_NAME = randFirstName({ gender: "male" });
+  const FIRST_NAME = randFirstName({ gender: "male", withAccents: false });
   await page.getByTestId("firstName").fill(FIRST_NAME);
   await page.getByTestId("firstName").press("Tab");
 
-  const FIRST_SURNAME = randLastName();
+  const FIRST_SURNAME = randLastName({ withAccents: false });
   await page.getByTestId("firstSurname").fill(FIRST_SURNAME);
   await page.getByTestId("firstSurname").press("Tab");
 
-  await page.getByTestId("secondSurname").fill(randLastName());
+  await page
+    .getByTestId("secondSurname")
+    .fill(randLastName({ withAccents: false }));
   await page.getByTestId("secondSurname").press("Tab");
 
   await page.getByTestId("birthdate").fill("1990-01-01");
 
   await page.getByTestId("email").click();
   const RAND_EMAIL = randEmail({
-    provider: "yopmail.com",
+    provider: "yopmail",
+    suffix: "com",
+    nameSeparator: "none",
     firstName: FIRST_NAME,
     lastName: FIRST_SURNAME,
   });
