@@ -12,6 +12,8 @@ import { Browser, BrowserContext, Page, chromium } from "@playwright/test";
 let browser: Browser;
 let context: BrowserContext;
 
+const baseUrl = "http://localhost:5173";
+
 export const fixture = {
   page: undefined as Page,
 };
@@ -43,9 +45,9 @@ AfterAll(async function () {
 });
 
 Given(
-  "Un usuario que desea iniciar sesion accede a ruta {string}",
+  "Un usuario que desea iniciar sesión accede a ruta {string}",
   async (givenRoute: string) => {
-    await fixture.page.goto(givenRoute);
+    await fixture.page.goto(baseUrl + givenRoute);
   }
 );
 
@@ -71,7 +73,8 @@ When("Haga clic en el botón {string}", async (givenButtonName) => {
 
 Then(
   "El usuario debe ser redirigido a la ruta {string}",
-  async (expectedUrl: string) => {
+  async (expectedPath: string) => {
+    const expectedUrl = baseUrl + expectedPath;
     await fixture.page.waitForURL(expectedUrl);
     const url = fixture.page.url();
     await fixture.page.screenshot({
@@ -83,7 +86,8 @@ Then(
 
 Then(
   "El usuario debe permanecer la misma ruta {string}",
-  async (expectedUrl: string) => {
+  async (expectedPath: string) => {
+    const expectedUrl = baseUrl + expectedPath;
     await fixture.page.waitForURL(expectedUrl);
     const url = fixture.page.url();
     assert.strictEqual(url, expectedUrl);
